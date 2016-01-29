@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1454095017 source:c:\users\wimbu\projects\writeanimage\main.cpp
+	<iostream>
+	<fstream>
+
