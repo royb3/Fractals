@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1454177948 source:c:\users\roy\projects\fractals\fractaltobitmap\main.cpp
+	<iostream>
+	<fstream>
+	"bitmap_header.h"
+	"color.h"
+	"alignmentPadding.h"
+
+1454172328 c:\users\roy\projects\fractals\fractaltobitmap\bitmap_header.h
+
+1454177779 c:\users\roy\projects\fractals\fractaltobitmap\color.h
+
+1454170403 c:\users\roy\projects\fractals\fractaltobitmap\alignmentpadding.h
+

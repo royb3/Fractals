@@ -7,10 +7,6 @@
 
 using namespace std;
 const int width = 2560, height = 1080;
-
-const int depth = 128;
-Color *colors[depth];
-
 BitmapHeader createHeader(int width, int height) {
     BitmapHeader header;
     header.width = width;
