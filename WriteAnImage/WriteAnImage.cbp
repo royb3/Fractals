@@ -31,8 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="alignmentPadding.h" />
 		<Unit filename="bitmap_header.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pixel.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

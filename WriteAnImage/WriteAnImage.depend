@@ -3,3 +3,16 @@
 	<iostream>
 	<fstream>
 
+1454176947 source:c:\users\roy\projects\fractals\writeanimage\main.cpp
+	<iostream>
+	<fstream>
+	"bitmap_header.h"
+	"pixel.h"
+	"alignmentPadding.h"
+
+1454172328 c:\users\roy\projects\fractals\writeanimage\bitmap_header.h
+
+1454177213 c:\users\roy\projects\fractals\writeanimage\pixel.h
+
+1454170403 c:\users\roy\projects\fractals\writeanimage\alignmentpadding.h
+

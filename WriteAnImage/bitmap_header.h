@@ -1,6 +1,7 @@
+#pragma pack(1)
 struct BitmapHeader {
-    unsigned short signature = 0x4D42;
-    unsigned int fileSize;
+    signed short signature = 0x4D42;
+    signed int fileSize;
     unsigned int reserved;
     unsigned int imageDataOffset = 54;
     unsigned int bitmapInfoHeaderSize = 40;
