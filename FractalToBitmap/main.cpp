@@ -1,4 +1,4 @@
-
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include "bitmap_header.h"
@@ -6,7 +6,9 @@
 #include "alignmentPadding.h"
 
 using namespace std;
-const int width = 2560, height = 1080;
+int width, height;
+const int depth = 128;
+Color *colors[depth];
 BitmapHeader createHeader(int width, int height) {
     BitmapHeader header;
     header.width = width;
@@ -22,8 +24,47 @@ BitmapHeader createHeader(int width, int height) {
     header.numberOfImportantColors = 0;
     return header;
 }
-int main() {
-    cout << "Hi!";
+
+void createColors() {
+    for(int i = 0; i < 32; i++) {
+        Color *color = new Color();
+        color->red = 8*i;
+        color->green = 128-4*i;
+        color->blue = 255-8*i;
+        colors[i] = color;
+    }
+
+    for(int i = 0; i < 32; i++) {
+        Color *color = new Color();
+        color->red = 255;
+        color->green = 8*i;
+        color->blue = 0;
+        colors[32 + i] = color;
+    }
+
+    for(int i = 0; i < 32; i++) {
+        Color *color = new Color();
+        color->red = 128-4*i;
+        color->green = 255;
+        color->blue = 255-8*i;
+        colors[i] = color;
+    }
+
+    for(int i = 0; i < 32; i++) {
+        Color *color = new Color();
+        color->red = 0;
+        color->green = 255-4*i;
+        color->blue = 8*i;
+        colors[96+i] = color;
+    }
+}
+int main(int argc, char** argv) {
+    createColors();
+    char *widthArgument = argv[1];
+    char *heightArgument = argv[2];
+    width = atoi(widthArgument);
+    height = atoi(heightArgument);
+
     ofstream outFile("C:\\Users\\Roy\\Desktop\\bla.bmp", ofstream::binary|ofstream::out);
     BitmapHeader header = createHeader(width, height);
     outFile.write((char *)&header, sizeof(BitmapHeader));
