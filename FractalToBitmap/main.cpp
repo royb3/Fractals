@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 #include <fstream>
 #include "bitmap_header.h"
 #include "color.h"
@@ -8,7 +9,8 @@
 using namespace std;
 int width, height;
 const int depth = 128;
-Color *colors[depth];
+Color *colors[128];
+Color *blackColor;
 BitmapHeader createHeader(int width, int height) {
     BitmapHeader header;
     header.width = width;
@@ -47,7 +49,7 @@ void createColors() {
         color->red = 128-4*i;
         color->green = 255;
         color->blue = 255-8*i;
-        colors[i] = color;
+        colors[64 + i] = color;
     }
 
     for(int i = 0; i < 32; i++) {
@@ -57,6 +59,10 @@ void createColors() {
         color->blue = 8*i;
         colors[96+i] = color;
     }
+    blackColor = new Color();
+    blackColor->red = 0;
+    blackColor->blue = 0;
+    blackColor->green = 0;
 }
 int main(int argc, char** argv) {
     createColors();
@@ -73,16 +79,30 @@ int main(int argc, char** argv) {
     bluePixel.green = 0;
     bluePixel.red = 0;
     AlignmentPadding padding;
-//  bool writePadding = false;
-    for(int y = 0; y < height; y++) {
-        for(int x = 0; x < width; x++) {
-            outFile.write((char *)&bluePixel, sizeof(Color));
+    char extention[5] = ".dat";
+    char folder[6] = "data/";
+
+  bool writePadding = false;
+    for(int y = height; y > 0; y--) {
+        char filename[50];
+        string s = to_string(y);
+        strcpy(filename, folder);
+        strcat(filename, s.c_str());
+        strcat(filename, extention);
+
+        cout << filename << endl;
+        ifstream inFile(filename, ifstream::in);
+        char color;
+        while(inFile.get(color)) {
+          if(color > 127) {
+            outFile.write((char *)blackColor, sizeof(Color));
+          } else {
+            outFile.write((char *)colors[color], sizeof(Color));
+          }
         }
-/*
-        if(writePadding) {
-            outFile.write((char *)&padding, sizeof(AlignmentPadding));
-        }
-*/
+          outFile.write((char*)&padding, sizeof(AlignmentPadding));
+
+        inFile.close();
     }
 
     outFile.close();
