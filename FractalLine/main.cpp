@@ -59,18 +59,19 @@ void writeError(string s){
 }
 
 int main(int argc, char **argv) {
-    if(argc != 4) {
+    if(argc != 5) {
         writeError("Wrong number of arguments!");
         return 1;
     }
     char *lineArgument = argv[1];
-    char *widthArgument = argv[2];
-    char *heightArgument = argv[3];
+    char *offsetArgument = argv[2];
+    char *widthArgument = argv[3];
+    char *heightArgument = argv[4];
 
     char *extention = ".dat";
 
 
-    unsigned int line = atoi(lineArgument);
+    unsigned int line = atoi(lineArgument) + atoi(offsetArgument);
     int width = atoi(widthArgument);
     int height = atoi(heightArgument);
 
