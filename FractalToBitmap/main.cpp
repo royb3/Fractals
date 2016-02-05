@@ -10,7 +10,7 @@ using namespace std;
 int width, height;
 const int depth = 128;
 Color *colors[128];
-Color *blackColor;
+Color blackColor;
 BitmapHeader createHeader(int width, int height) {
     BitmapHeader header;
     header.width = width;
@@ -59,10 +59,9 @@ void createColors() {
         color->blue = 8*i;
         colors[96+i] = color;
     }
-    blackColor = new Color();
-    blackColor->red = 0;
-    blackColor->blue = 0;
-    blackColor->green = 0;
+    blackColor.red = 0;
+    blackColor.blue = 0;
+    blackColor.green = 0;
 }
 int main(int argc, char** argv) {
     createColors();
@@ -71,17 +70,13 @@ int main(int argc, char** argv) {
     width = atoi(widthArgument);
     height = atoi(heightArgument);
 
-    ofstream outFile("C:\\Users\\Roy\\Desktop\\bla.bmp", ofstream::binary|ofstream::out);
+    ofstream outFile("bla.bmp", ofstream::binary|ofstream::out);
     BitmapHeader header = createHeader(width, height);
     outFile.write((char *)&header, sizeof(BitmapHeader));
-    Color bluePixel;
-    bluePixel.blue = 255;
-    bluePixel.green = 0;
-    bluePixel.red = 0;
     AlignmentPadding padding;
     char extention[5] = ".dat";
     char folder[6] = "data/";
-
+//outFile.write((char*)&padding, sizeof(AlignmentPadding));
   bool writePadding = false;
     for(int y = height; y > 0; y--) {
         char filename[50];
@@ -91,16 +86,16 @@ int main(int argc, char** argv) {
         strcat(filename, extention);
 
         cout << filename << endl;
-        ifstream inFile(filename, ifstream::in);
+        ifstream inFile(filename, ifstream::binary|ifstream::in);
         char color;
         while(inFile.get(color)) {
-          if(color > 127) {
-            outFile.write((char *)blackColor, sizeof(Color));
-          } else {
+          if(color <= 127) {
             outFile.write((char *)colors[color], sizeof(Color));
+          } else {
+            outFile.write((char *)&blackColor, sizeof(Color));
           }
         }
-          outFile.write((char*)&padding, sizeof(AlignmentPadding));
+
 
         inFile.close();
     }
