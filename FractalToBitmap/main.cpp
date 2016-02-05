@@ -67,9 +67,10 @@ int main(int argc, char** argv) {
     createColors();
     char *widthArgument = argv[1];
     char *heightArgument = argv[2];
+    char *offsetArgument = argv[3];
     width = atoi(widthArgument);
     height = atoi(heightArgument);
-
+    int offset = atoi(offsetArgument);
     ofstream outFile("bla.bmp", ofstream::binary|ofstream::out);
     BitmapHeader header = createHeader(width, height);
     outFile.write((char *)&header, sizeof(BitmapHeader));
@@ -78,7 +79,7 @@ int main(int argc, char** argv) {
     char folder[6] = "data/";
 //outFile.write((char*)&padding, sizeof(AlignmentPadding));
   bool writePadding = false;
-    for(int y = height; y > 0; y--) {
+    for(int y = height-offset; y >= offset; y--) {
         char filename[50];
         string s = to_string(y);
         strcpy(filename, folder);
