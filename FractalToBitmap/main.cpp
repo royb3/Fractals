@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     char folder[6] = "data/";
 //outFile.write((char*)&padding, sizeof(AlignmentPadding));
   bool writePadding = false;
-    for(int y = height-offset; y >= offset; y--) {
+    for(int y = height - 1 - offset; y >= offset; y--) {
         char filename[50];
         string s = to_string(y);
         strcpy(filename, folder);
